@@ -4,11 +4,17 @@ import 'package:gymapp/blocs/workout_cubit.dart';
 import 'package:gymapp/blocs/workouts_cubit.dart';
 import 'package:gymapp/screens/edit_workout_screen.dart';
 import 'package:gymapp/screens/home_page.dart';
+import 'package:gymapp/screens/workout_in_progress.dart';
 import 'package:gymapp/states/workout_states.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const WorkoutTime());
+  final storage = await HydratedStorage.build(
+      storageDirectory: await getApplicationDocumentsDirectory());
+  HydratedBlocOverrides.runZoned(() => runApp(const WorkoutTime()),
+      storage: storage);
 }
 
 class WorkoutTime extends StatelessWidget {
@@ -64,7 +70,7 @@ class WorkoutTime extends StatelessWidget {
             } else if (state is WorkoutEditing) {
               return const EditWorkoutScreen();
             }
-            return Container();
+            return const WorkoutProgress();
           }),
         ));
   }

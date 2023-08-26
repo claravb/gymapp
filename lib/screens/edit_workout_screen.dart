@@ -47,6 +47,7 @@ class EditWorkoutScreen extends StatelessWidget {
                                   Navigator.pop(context);
                                   Workout renamed = we.workout!
                                       .copyWith(title: controller.text);
+                                  //to save the actual change, call bloc
                                   BlocProvider.of<WorkoutsCubit>(context)
                                       .saveWorkout(renamed, we.index);
                                   BlocProvider.of<WorkoutCubit>(context)

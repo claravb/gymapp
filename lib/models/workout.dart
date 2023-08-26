@@ -29,19 +29,19 @@ class Workout extends Equatable {
 
   Map<String, dynamic> toJson() => {
         "title": title,
-        "exercises": exercises,
+        "exercises ": exercises,
       };
 
   Workout copyWith({String? title}) =>
       Workout(title: title ?? this.title, exercises: exercises);
 
-  int getTotal() {
-    int time = exercises.fold(
-        0,
-        (previousValue, element) =>
-            previousValue + element.duration! + element.prelude!);
-    return time;
-  }
+  int getTotal() => exercises.fold(
+      0,
+      (previousValue, element) =>
+          previousValue + element.duration! + element.prelude!);
+// last smalled element object
+  Exercise getCurrentExercise(int? elapsed) =>
+      exercises.lastWhere((element) => element.startTime! <= elapsed!);
 
   @override
   // TODO: implement props
